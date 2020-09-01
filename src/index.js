@@ -4,13 +4,14 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter as Router } from "react-router-dom";
 import 'antd/dist/antd.css';
+import Modal from "./models";
 
 ReactDOM.render(
-  <React.StrictMode>
+
     <Router>
       <App />
-    </Router>
-  </React.StrictMode>,
+    </Router>,
+
   document.getElementById("root")
 );
 

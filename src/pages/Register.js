@@ -1,7 +1,7 @@
 import React from 'react';
 import {Form, Input, Button, Checkbox} from 'antd';
 import styled from "styled-components";
-import {values} from "mobx";
+import {useStores} from "../stores";
 
 const Wraper = styled.div`
     max-width:600px;
@@ -24,18 +24,29 @@ const tailLayout = {
 };
 
 const Component = () => {
+    const {AuthStore} = useStores()
+
     const onFinish = values => {
         console.log('Success:', values);
+        AuthStore.setUsername(values.username)
+        AuthStore.setPassword(values.password)
+        AuthStore.register()
+            .then(()=>{
+                console.log('注册成功，跳转至首页')
+            }).catch(()=>{
+                console.log('登录失败，什么都不做')
+        })
     };
 
     const onFinishFailed = errorInfo => {
         console.log('Failed:', errorInfo);
     };
-    const validateUsername = (rule,value) =>{
+    const validateUsername = (rule, value) => {
         if(/\W/.test(value)) return Promise.reject('ID只能包含字母、数字、下划线');
-        if(value.length <4 || value.length >16)return Promise.reject('ID长度为4~16个字符');
+        if(value.length < 4 || value.length > 16) return Promise.reject('ID长度为4~16个字符');
         return Promise.resolve();
     };
+
     const validateConfirm = ({getFieldValue}) =>({
         validator(rule,value){
             if(getFieldValue('password') === value)return Promise.resolve();
