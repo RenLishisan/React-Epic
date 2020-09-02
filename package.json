@@ -87,6 +87,7 @@
     ]
   },
   "devDependencies": {
+    "@ant-design/icons": "^4.2.2",
     "mobx-react": "^6.2.5",
     "styled-components": "^5.1.1"
   },
