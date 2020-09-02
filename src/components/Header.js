@@ -60,8 +60,8 @@ const Components = observer(() => {
             {UserStore.currentUser.attributes.username}
             <StyledButton type="primary" onClick={handleLogout}>注销</StyledButton>
             </> : <>
-              <StyledButton type="primary" onClick={handleLogin}>登录</StyledButton>
-              <StyledButton type="primary" onClick={handleRegister}>注册</StyledButton>
+              <StyledButton type="primary" onClick={handleLogin}>验证通行证</StyledButton>
+              <StyledButton type="primary" onClick={handleRegister}>申请通行证</StyledButton>
             </>
           }
 
