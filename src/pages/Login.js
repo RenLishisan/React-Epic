@@ -2,6 +2,7 @@ import React from 'react';
 import {Form, Input, Button, Checkbox} from 'antd';
 import styled from "styled-components";
 import {useStores} from "../stores";
+import { useHistory } from 'react-router-dom'
 
 const Wraper = styled.div`
     max-width:600px;
@@ -25,6 +26,7 @@ const tailLayout = {
 
 const Component = () => {
   const {AuthStore} = useStores()
+  const history = useHistory()
     const onFinish = values => {
         console.log('Success:', values);
         AuthStore.setUsername(values.username)
@@ -32,6 +34,7 @@ const Component = () => {
         AuthStore.login()
             .then(()=>{
               console.log('登录成功，跳转到首页')
+              history.push('/')
             }).catch(()=>{
               console.log('登录失败')
         })
@@ -59,7 +62,7 @@ const Component = () => {
                     label="ID"
                     name="username"
                     rules={[
-                        {required: true, message: '请输入您要创建的身份ID'},
+                        {required: true, message: '请输入您的身份ID'},
                         {validator:validateUsername}
                     ]}
                 >
@@ -70,7 +73,7 @@ const Component = () => {
                     label="秘钥"
                     name="password"
                     rules={[
-                        {required: true, message: '请设置您的私人秘钥'},
+                        {required: true, message: '请输入您的私人秘钥'},
                         {min:4,message:'最少4个字符'},
                         {max:10,message:'最大10个字符'}
                     ]}
