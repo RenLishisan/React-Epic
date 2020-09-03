@@ -1,6 +1,7 @@
 import {observable, action} from 'mobx';
 import {Auth} from "../models";
 import UserStore from './user'
+import {message} from 'antd'
 
 class AuthStore {
   @observable values = {
@@ -25,6 +26,7 @@ class AuthStore {
             resolve(user)
           }).catch(err => {
         UserStore.resetUser();
+        message.error('身份验证失败')
         reject(err)
       })
     })
@@ -37,6 +39,7 @@ class AuthStore {
           .then(user => {
             UserStore.pullUser();
             resolve(user)
+            message.error('通信证申请失败')
           }).catch(err => {
         UserStore.resetUser();
         reject(err)

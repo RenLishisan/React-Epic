@@ -1,7 +1,7 @@
 import React, {useRef} from 'react';
 import {useStores} from '../stores';
 import {observer, useLocalStore} from 'mobx-react';
-import {Upload, message} from 'antd';
+import {Upload, message, Spin} from 'antd';
 import {InboxOutlined} from '@ant-design/icons';
 import styled from 'styled-components';
 
@@ -65,36 +65,38 @@ const Component = observer(() => {
         message.warning('请先验证身份再上传！');
         return false;
       }
-      if(file.size > 4096*2160){
+      if (file.size > 4096 * 2160) {
         message.error('为了缓解服务器压力，目前仅支持最大8M大小')
       }
       window.file = file
-      if (!/(svg$)|(png$)|(jpg$)|(jpeg$)|(gif)/ig.test(file.type)){
+      if (!/(svg$)|(png$)|(jpg$)|(jpeg$)|(gif)/ig.test(file.type)) {
         message.error('现仅支持上传png/svg/jpg/gif格式的图片')
         return false
       }
-        ImageStore.upload()
-            .then((serverFile) => {
-              console.log('上传成功')
-              console.log(serverFile);
-            }).catch(() => {
-          console.log('上传失败')
-        });
+      ImageStore.upload()
+          .then((serverFile) => {
+            console.log('上传成功')
+            console.log(serverFile);
+          }).catch(() => {
+        console.log('上传失败')
+      });
       return false;
     }
   };
 
   return (
       <div>
-        <Dragger {...props}>
-          <p className="ant-upload-drag-icon">
-            <InboxOutlined/>
-          </p>
-          <p className="ant-upload-text">可以点击或者或者拖拽上传图片</p>
-          <p className="ant-upload-hint">
-            目前仅支持.png/.gif/.jpg/.svg类型图片，为了缓解服务器压力单张图片大小不得超过8MB
-          </p>
-        </Dragger>
+        <Spin tip="图片上传中..." spinning={ImageStore.isUpoading}>
+          <Dragger {...props}>
+            <p className="ant-upload-drag-icon">
+              <InboxOutlined/>
+            </p>
+            <p className="ant-upload-text">可以点击或者或者拖拽上传图片</p>
+            <p className="ant-upload-hint">
+              目前仅支持.png/.gif/.jpg/.svg类型图片，为了缓解服务器压力单张图片大小不得超过8MB
+            </p>
+          </Dragger>
+        </Spin>
 
         {
           ImageStore.serverFile ? <Result>
