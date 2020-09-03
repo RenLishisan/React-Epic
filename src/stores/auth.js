@@ -39,9 +39,10 @@ class AuthStore {
           .then(user => {
             UserStore.pullUser();
             resolve(user)
-            message.error('通信证申请失败')
+
           }).catch(err => {
         UserStore.resetUser();
+        message.error('通行证申请失败')
         reject(err)
       })
     })
