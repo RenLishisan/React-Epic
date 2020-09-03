@@ -1,11 +1,11 @@
-import React, { useRef } from 'react';
-import { useStores } from '../stores';
-import { observer, useLocalStore } from 'mobx-react';
-import { Upload, message } from 'antd';
-import { InboxOutlined } from '@ant-design/icons';
+import React, {useRef} from 'react';
+import {useStores} from '../stores';
+import {observer, useLocalStore} from 'mobx-react';
+import {Upload, message} from 'antd';
+import {InboxOutlined} from '@ant-design/icons';
 import styled from 'styled-components';
 
-const { Dragger } = Upload;
+const {Dragger} = Upload;
 
 
 const Result = styled.div`
@@ -22,9 +22,8 @@ const Image = styled.img`
 `;
 
 
-
 const Component = observer(() => {
-  const { ImageStore, UserStore } = useStores();
+  const {ImageStore, UserStore} = useStores();
   const ref1 = useRef();
   const ref2 = useRef();
 
@@ -34,14 +33,14 @@ const Component = observer(() => {
       store.width = width;
     },
     get widthStr() {
-      return store.width?`/w/${store.width}`:'';
+      return store.width ? `/w/${store.width}` : '';
     },
     height: null,
     setHeight(height) {
       store.height = height;
     },
     get heightStr() {
-      return store.height?`/h/${store.height}`:'';
+      return store.height ? `/h/${store.height}` : '';
     },
     get fullStr() {
       return ImageStore.serverFile.attributes.url.attributes.url + '?imageView2/0' + store.widthStr + store.heightStr
@@ -62,17 +61,25 @@ const Component = observer(() => {
     beforeUpload: file => {
       ImageStore.setFile(file);
       ImageStore.setFilename(file.name);
-      if(UserStore.currentUser === null) {
-        message.warning('请先登录再上传！');
+      if (UserStore.currentUser === null) {
+        message.warning('请先验证身份再上传！');
         return false;
       }
-      ImageStore.upload()
-          .then((serverFile) => {
-            console.log('上传成功')
-            console.log(serverFile);
-          }).catch(() => {
-        console.log('上传失败')
-      });
+      if(file.size > 4096*2160){
+        message.error('为了缓解服务器压力，目前仅支持最大8M大小')
+      }
+      window.file = file
+      if (!/(svg$)|(png$)|(jpg$)|(jpeg$)|(gif)/ig.test(file.type)){
+        message.error('现仅支持上传png/svg/jpg/gif格式的图片')
+        return false
+      }
+        ImageStore.upload()
+            .then((serverFile) => {
+              console.log('上传成功')
+              console.log(serverFile);
+            }).catch(() => {
+          console.log('上传失败')
+        });
       return false;
     }
   };
@@ -81,12 +88,11 @@ const Component = observer(() => {
       <div>
         <Dragger {...props}>
           <p className="ant-upload-drag-icon">
-            <InboxOutlined />
+            <InboxOutlined/>
           </p>
-          <p className="ant-upload-text">Click or drag file to this area to upload</p>
+          <p className="ant-upload-text">可以点击或者或者拖拽上传图片</p>
           <p className="ant-upload-hint">
-            Support for a single or bulk upload. Strictly prohibit from uploading company data or other
-            band files
+            目前仅支持.png/.gif/.jpg/.svg类型图片，为了缓解服务器压力单张图片大小不得超过8MB
           </p>
         </Dragger>
 
@@ -95,7 +101,9 @@ const Component = observer(() => {
             <H1>上传结果</H1>
             <dl>
               <dt>线上地址</dt>
-              <dd><a target="_blank" href={ImageStore.serverFile.attributes.url.attributes.url}>{ ImageStore.serverFile.attributes.url.attributes.url}</a></dd>
+              <dd><a target="_blank"
+                     href={ImageStore.serverFile.attributes.url.attributes.url}>{ImageStore.serverFile.attributes.url.attributes.url}</a>
+              </dd>
               <dt>文件名</dt>
               <dd>{ImageStore.filename}</dd>
               <dt>图片预览</dt>
@@ -108,7 +116,7 @@ const Component = observer(() => {
                 <input ref={ref2} onChange={bindHeightChange} placeholder="最大高度（可选）"/>
               </dd>
               <dd>
-                <a  target="_blank" href={store.fullStr}>{store.fullStr}</a>
+                <a target="_blank" href={store.fullStr}>{store.fullStr}</a>
               </dd>
             </dl>
           </Result> : null
