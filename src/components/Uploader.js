@@ -16,7 +16,7 @@ const Component = observer(() => {
       ImageStore.setFile(file);
       ImageStore.setFilename(file.name);
       if(UserStore.currentUser === null) {
-        message.warning('请先登录再上传！');
+        message.warning('请先验证通行证权限！');
         return false;
       }
       ImageStore.upload()
