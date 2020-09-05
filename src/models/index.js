@@ -9,51 +9,54 @@ AV.init({
 const Auth = {
   register(username, password) {
     let user = new User();
-    user.setUsername(username)
-    user.setPassword(password)
+    user.setUsername(username);
+    user.setPassword(password);
     return new Promise((resolve, reject) => {
       user.signUp().then(loginedUser => resolve(loginedUser), error => reject(error))
-    })
+    });
   },
+
   login(username, password) {
+    console.log(username, password)
     return new Promise((resolve, reject) => {
-      User.logIn(username, password).then(loginedUser => resolve(loginedUser), error => reject(error))
-    })
+      User.logIn(username, password).then(loginedUser => resolve(loginedUser), error => reject(error));
+    });
   },
   logout() {
     User.logOut()
   },
-  gitCurrentUser() {
+  getCurrentUser() {
     return User.current()
   }
 }
 
 const Uploader = {
   add(file, filename) {
-    const item = new AV.Object('Image')
-    const avFile = new AV.File(filename, file)
+    const item = new AV.Object('Image');
+    const avFile = new AV.File(filename, file);
     item.set('filename', filename);
-    item.set('owner', AV.User.current())
-    item.set('url', avFile)
+    item.set('owner', AV.User.current());
+    item.set('url', avFile);
     return new Promise((resolve, reject) => {
-      item.save().then(serverFile => resolve(serverFile), error => reject(error))
-    })
+      item.save().then(serverFile => resolve(serverFile), error => reject(error));
+    });
   },
-  find({page=0,limit=10}){
-    const query = new AV.Query('Image')
+
+  find({page=0, limit=10}) {
+    const query = new AV.Query('Image');
     query.include('owner');
-    query.limit('limit');
+    query.limit(limit);
     query.skip(page*limit);
-    query.descending('createdAt')
-    query.equalTo('owner',AV.User.current())
-    return new Promise((resolve,reject) =>{
+    query.descending('createdAt');
+    query.equalTo('owner', AV.User.current());
+    return new Promise((resolve, reject) => {
       query.find()
           .then(results => resolve(results))
           .catch(error => reject(error))
-    })
+    });
   }
 }
-window.Uploader = Uploader
+window.Uploader=Uploader;
 
 export {
   Auth,

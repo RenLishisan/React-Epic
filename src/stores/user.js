@@ -1,14 +1,17 @@
-import {observable, action} from 'mobx';
-import {Auth} from "../models";
+import { observable, action } from 'mobx';
+import { Auth } from '../models';
 
-class UserStore{
+class UserStore {
   @observable currentUser = null;
-  @action pullUser(){
-    this.currentUser = Auth.gitCurrentUser()
+
+  @action pullUser() {
+    this.currentUser = Auth.getCurrentUser()
   }
-  @action resetUser(){
-    this.currentUser = null
+
+  @action resetUser() {
+    this.currentUser = null;
   }
 }
 
-export default new UserStore()
+
+export default new UserStore() ;

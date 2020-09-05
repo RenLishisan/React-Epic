@@ -1,11 +1,11 @@
-import React, {useRef} from 'react';
-import {useStores} from '../stores';
-import {observer, useLocalStore} from 'mobx-react';
-import {Upload, message, Spin} from 'antd';
-import {InboxOutlined} from '@ant-design/icons';
+import React, { useRef } from 'react';
+import { useStores } from '../stores';
+import { observer, useLocalStore } from 'mobx-react';
+import { Upload, message, Spin } from 'antd';
+import { InboxOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 
-const {Dragger} = Upload;
+const { Dragger } = Upload;
 
 
 const Result = styled.div`
@@ -22,8 +22,9 @@ const Image = styled.img`
 `;
 
 
+
 const Component = observer(() => {
-  const {ImageStore, UserStore} = useStores();
+  const { ImageStore, UserStore } = useStores();
   const ref1 = useRef();
   const ref2 = useRef();
 
@@ -49,6 +50,8 @@ const Component = observer(() => {
   }));
 
   const bindWidthChange = () => {
+    console.log('bindWidthChange...')
+    console.log(ref1.current.value)
     store.setWidth(ref1.current.value);
   };
 

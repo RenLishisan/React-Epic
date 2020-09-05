@@ -32,12 +32,12 @@ const StyledButton = styled(Button)`
 
 const Components = observer(() => {
 
-  const history = useHistory()
-  const {UserStore,AuthStore} = useStores();
+  const history = useHistory();
+  const { UserStore, AuthStore } = useStores();
 
   const handleLogout = () => {
-    AuthStore.logout()
-  }
+    AuthStore.logout();
+  };
   const handleLogin = () => {
     console.log('跳转到登录页面')
     history.push('/login')
