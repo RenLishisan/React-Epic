@@ -20,10 +20,8 @@ const Component = observer(() => {
   };
 
   useEffect(() => {
-    console.log('进入组件')
 
     return () => {
-      console.log('卸载')
       HistoryStore.reset();
     }
   }, []);
@@ -55,7 +53,7 @@ const Component = observer(() => {
           >
             { HistoryStore.isLoading && HistoryStore.hasMore && (
                 <div>
-                  <Spin tip="加载中"/>
+                  <Spin tip="努力加载中..."/>
                 </div>
             )}
           </List>

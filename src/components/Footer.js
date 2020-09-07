@@ -10,7 +10,9 @@ const Footer = styled.footer`
 function Components() {
   return (
     <Footer>
-      <p>Footer</p>
+      <p>
+        © 荏狸十三
+      </p>
     </Footer>
   );
 }

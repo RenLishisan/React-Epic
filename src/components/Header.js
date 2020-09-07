@@ -11,7 +11,7 @@ const Header = styled.header`
   display: flex;
   align-items: center;
   padding: 10px 100px;
-  background-color: #02101f;
+  background-color: #1D6A96;
   color: #fff;
 `;
 
@@ -47,12 +47,10 @@ const  Component = observer(() => {
   };
 
   const handleLogin = () => {
-    console.log('跳转到登录页面')
     history.push('/login');
   };
 
   const handleRegister = () => {
-    console.log('跳转到注册页面')
     history.push('/register');
   }
 
@@ -66,7 +64,7 @@ const  Component = observer(() => {
         <nav>
           <StyledLink to="/" activeClassName="active" exact>首页</StyledLink>
           <StyledLink to="/history" activeClassName="active">上传历史</StyledLink>
-          <StyledLink to="/about" activeClassName="active">关于我</StyledLink>
+          <StyledLink to="/about" activeClassName="active">关于生成姬</StyledLink>
         </nav>
         <Login>
           {

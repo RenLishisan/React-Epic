@@ -50,8 +50,6 @@ const Component = observer(() => {
   }));
 
   const bindWidthChange = () => {
-    console.log('bindWidthChange...')
-    console.log(ref1.current.value)
     store.setWidth(ref1.current.value);
   };
 
@@ -78,10 +76,8 @@ const Component = observer(() => {
       }
       ImageStore.upload()
           .then((serverFile) => {
-            console.log('上传成功')
             console.log(serverFile);
           }).catch(() => {
-        console.log('上传失败')
       });
       return false;
     }
@@ -105,17 +101,17 @@ const Component = observer(() => {
           ImageStore.serverFile ? <Result>
             <H1>上传结果</H1>
             <dl>
-              <dt>线上地址</dt>
+              <dt>线上地址:</dt>
               <dd><a target="_blank"
                      href={ImageStore.serverFile.attributes.url.attributes.url}>{ImageStore.serverFile.attributes.url.attributes.url}</a>
               </dd>
-              <dt>文件名</dt>
+              <dt>文件名:</dt>
               <dd>{ImageStore.filename}</dd>
-              <dt>图片预览</dt>
+              <dt>图片预览:</dt>
               <dd>
                 <Image src={ImageStore.serverFile.attributes.url.attributes.url}/>
               </dd>
-              <dt>更多尺寸</dt>
+              <dt>自定义尺寸</dt>
               <dd>
                 <input ref={ref1} onChange={bindWidthChange} placeholder="最大宽度（可选）"/>
                 <input ref={ref2} onChange={bindHeightChange} placeholder="最大高度（可选）"/>
@@ -126,6 +122,7 @@ const Component = observer(() => {
             </dl>
           </Result> : null
         }
+        <h3>本站可以将图片生成在线地址，并且无压缩源文件生成，方便你在任何地方使用你的图片！</h3>
       </div>
   );
 });
