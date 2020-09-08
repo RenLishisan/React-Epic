@@ -71,7 +71,7 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
-    "upload": "cd build & git add -f. & git commit -am \"init\" & git remote add origin git@github.com:RenLishisan/Epic-website.git & git push -f origin master"
+    "upload": "cd build & git add -f . & git commit -am \"init\" & git remote add origin git@github.com:RenLishisan/Epic-website.git & git push -f origin master"
   },
   "eslintConfig": {
     "extends": "react-app"
