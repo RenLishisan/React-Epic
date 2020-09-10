@@ -12,6 +12,7 @@ const Img = styled.img`
   border: 1px solid #eee;
 `;
 
+
 const Component = observer(() => {
   const { HistoryStore } = useStores();
 

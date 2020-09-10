@@ -74,7 +74,6 @@ const  Component = observer(() => {
               <StyledButton type="primary" onClick={handleLogin}>验证通行证</StyledButton>
               <StyledButton type="primary" onClick={handleRegister}>申请通行证</StyledButton>
             </>
-
           }
         </Login>
 

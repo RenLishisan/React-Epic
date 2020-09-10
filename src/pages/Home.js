@@ -8,7 +8,7 @@ const Home = observer(() => {
   const {UserStore} = useStores()
   return (
       <>
-        <Tips>请先验证通行证再使用该功能</Tips>
+        <Tips>请先验证通行证再使用该功能!!</Tips>
         <Uploader/>
       </>
   );

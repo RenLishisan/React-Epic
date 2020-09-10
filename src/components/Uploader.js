@@ -10,7 +10,6 @@ const { Dragger } = Upload;
 
 const Result = styled.div`
   margin-top: 30px;
-  border: 1px dashed #ccc;
   padding: 20px;
 `;
 const H1 = styled.h1`
@@ -18,7 +17,13 @@ const H1 = styled.h1`
   text-align: center;
 `;
 const Image = styled.img`
-  max-width: 300px;
+  max-width: 300px ;
+`;
+
+const YellowDragger = styled(Dragger)`
+  .ant-upload {
+     background: rgb(102,169,201) !important;
+  }
 `;
 
 
@@ -66,8 +71,8 @@ const Component = observer(() => {
         message.warning('请先验证身份再上传！');
         return false;
       }
-      if (file.size > 4096 * 2160) {
-        message.error('为了缓解服务器压力，目前仅支持最大8M大小')
+      if (file.size > 2000 * 2000) {
+        message.error('为了缓解服务器压力，目前仅支持最大4M大小')
       }
       window.file = file
       if (!/(svg$)|(png$)|(jpg$)|(jpeg$)|(gif)/ig.test(file.type)) {
@@ -86,7 +91,7 @@ const Component = observer(() => {
   return (
       <div>
         <Spin tip="图片上传中..." spinning={ImageStore.isUpoading}>
-          <Dragger {...props}>
+          <YellowDragger {...props}>
             <p className="ant-upload-drag-icon">
               <InboxOutlined/>
             </p>
@@ -94,7 +99,7 @@ const Component = observer(() => {
             <p className="ant-upload-hint">
               目前仅支持.png/.gif/.jpg/.svg类型图片，为了缓解服务器压力单张图片大小不得超过8MB
             </p>
-          </Dragger>
+          </YellowDragger>
         </Spin>
 
         {

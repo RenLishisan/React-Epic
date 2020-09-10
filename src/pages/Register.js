@@ -10,6 +10,7 @@ const Wraper = styled.div`
     box-shadow:2px 2px 4px 0 rgba(0,0,0,0.2);
     border-radius:4px;
     padding:20px;
+    background:rgb(255,255,255)
 `
 const Title = styled.h1`
     text-align:center;
